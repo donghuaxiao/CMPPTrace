@@ -2,6 +2,7 @@ package com.ericsson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -19,13 +20,13 @@ import com.ericsson.writer.FileWriter;
 
 public class TracerExecutor {
 
-	/* ×¥°ü */
+	/* ×¥ï¿½ï¿½ */
 	private PacketCapture capture;
 	
-	/* °Ñ¹ýÂËºóµÄ°üÐ´ÈëÖ¸¶¨µÄÎÄ¼þ */
+	/* ï¿½Ñ¹ï¿½ï¿½Ëºï¿½Ä°ï¿½Ð´ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ */
 	private FileWriter fileWriter;
 	
-	/* °ü½âÎöÆ÷*/
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	private PacketParser parser;
 	
 	private List<String> networkDevs;
@@ -34,13 +35,13 @@ public class TracerExecutor {
 	
 	private PacketFilter packetFilter;
 	
-	/* ±£´æCMPP ¶ÌÐÅ°üµÄÎÄ¼þÃû */
+	/* ï¿½ï¿½ï¿½ï¿½CMPP ï¿½ï¿½ï¿½Å°ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ */
 	private String fileName;
 	
-	/* ´æ·ÅÒÑ¾­¹ýÂË CMPP Submit °ü*/
+	/* ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ CMPP Submit ï¿½ï¿½*/
 	private BlockingQueue<PcapPacket> filterQueue = new LinkedBlockingQueue<>();
 	
-	/* ´æ·ÅÒªÐ´ÈëÎÄ¼þµÄ°ü */
+	/* ï¿½ï¿½ï¿½ÒªÐ´ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ä°ï¿½ */
 	private BlockingQueue<PcapPacket> storeQueue = new LinkedBlockingQueue<>();
 	
 	private ExecutorService services = new ThreadPoolExecutor(4, 8, 1, TimeUnit.HOURS, new LinkedBlockingQueue<Runnable>());
@@ -52,9 +53,11 @@ public class TracerExecutor {
 	class ExitHandler extends Thread {
 		@Override
 		public void run() {
-			services.shutdown();
-			parser.stop();
-			fileWriter.stop();
+            System.out.println("CMPPTrace exited.");
+            services.shutdown();
+            parser.stop();
+            fileWriter.stop();
+            
 		}
 	}
 	

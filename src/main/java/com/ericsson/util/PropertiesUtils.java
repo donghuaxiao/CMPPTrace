@@ -36,16 +36,9 @@ public class PropertiesUtils {
 	}
 	
 	public static Properties getProperties( String resource) throws IOException {
-		URL resourceURL = PropertiesUtils.getResource(resource);
-		if (resourceURL == null) {
-			throw new IOException("Cannot found Resource : " + resource);
-		}
-		
-		Properties props = new Properties();
-	
-		props.load(resourceURL.openStream());
-		
-		return props;
+        
+        String workdir = System.getProperty("user.dir");
+		return PropertiesUtils.loadProperties(workdir + File.separator + resource);
 	}
 	
 	public static Properties loadProperties( String filename) throws IOException {
